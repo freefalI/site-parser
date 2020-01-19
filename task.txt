@@ -25,3 +25,47 @@
 Разрешается:
 — использовать свои библиотеки (при условии подключения их через composer);
 — использовать любой удобный способ хранения данных.
+
+
+DTO
+register handler
+
+Scraper
+    WebPageScraper
+        LinkScraper
+        ImageScraper
+DTO
+ScrapingResultsDTO
+    link
+    images[]
+    ---
+    getLink()
+    getImages()
+
+type hinting
+immutability
+
+проверка на то что эта ссылка уже парсилась
+замомнить
+вернуть список ссылок
+
+Вид csv
+/home
+    images:
+            a.png
+            p.png
+/catalog:
+    images:
+            c.jpeg
+            d.jpeg
+
+
+ссылка;img1,img2,img3
+ссылка;img1,img2,img3
+
+ValueObject - Link
+
+
+
+запретить изменение в DTO
+Заменить link на url
