@@ -12,25 +12,25 @@ use SiteParser\Handlers\CountImagesHandler;
 use SiteParser\Handlers\SaveToFileHandler;
 use SiteParser\ParseManager;
 use SiteParser\Scrappers\ImageScraper;
-use SiteParser\Scrappers\LinkScraper;
-use SiteParser\ValueObjects\Link;
+use SiteParser\Scrappers\UrlScraper;
+use SiteParser\ValueObjects\Url;
 
 class ParseCommand extends Command
 {
     /**
-     * @var Link
+     * @var Url
      */
     private $url;
 
     /**
      * ParseCommand constructor.
-     * @param string $link
+     * @param string $url
      * @throws \ErrorException
      */
-    public function __construct($link)
+    public function __construct($url)
     {
-        $link = new Link('my_link');
-        $this->url = $link;
+        $url = new Url('my_url');
+        $this->url = $url;
         $this->execute();
     }
 
@@ -38,12 +38,12 @@ class ParseCommand extends Command
     {
 
         $parserManager = new ParseManager();
-        $parserManager->setScrapper(new LinkScraper());
-        $parserManager->setScrapper(new ImageScraper());
+        $parserManager->setUrlScrapper(new UrlScraper());
+        $parserManager->setImageScrapper(new ImageScraper());
         $parserManager->registerHandler(new SaveToFileHandler());
         $parserManager->registerHandler(new CountImagesHandler());
 
-        $parserManager->parse();
+        $parserManager->parse($this->url);
     }
 
 

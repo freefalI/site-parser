@@ -32,14 +32,14 @@ register handler
 
 Scraper
     WebPageScraper
-        LinkScraper
+        UrlScraper
         ImageScraper
 DTO
 ScrapingResultsDTO
-    link
+    Url
     images[]
     ---
-    getLink()
+    getUrl()
     getImages()
 
 type hinting
@@ -63,9 +63,13 @@ immutability
 ссылка;img1,img2,img3
 ссылка;img1,img2,img3
 
-ValueObject - Link
+ValueObject - Url
 
 
 
 запретить изменение в DTO
-Заменить link на url
+Заменить Url на url
+вывод или return
+Разобратся со возвращаемыми типами
+    webscrapper:   public function run(Url $url):ScrapedData
+Заменить типы в докблоке на более конкретные.

@@ -9,10 +9,10 @@
 namespace SiteParser\Scrappers;
 
 use SiteParser\DTO\ScrapedData;
-use SiteParser\DTO\ScrapedImages;
+use SiteParser\DTO\ScrapedUrls;
 use SiteParser\ValueObjects\Url;
 
-class ImageScraper extends WebPageScraper
+class UrlScraper extends WebPageScraper
 {
     /**
      * @param Url $url
@@ -24,6 +24,6 @@ class ImageScraper extends WebPageScraper
     {
         // TODO: Implement run() method.
 
-        return new ScrapedImages($url, [new Url('789'), new Url('123')]);
+        return new ScrapedUrls($url, [new Url('123'), new Url(456)]);
     }
 }

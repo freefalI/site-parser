@@ -1,14 +1,16 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Andrew Shmatko
  * Date: 19.01.2020
- * Time: 17:28
+ * Time: 17:07
  */
 
-namespace SiteParser\ValueObjects;
+namespace SiteParser\DTO;
 
-class ImageLink extends Link
+class ScrapedUrls extends ScrapedData
 {
+
 
 }

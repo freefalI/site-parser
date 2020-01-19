@@ -10,6 +10,7 @@ namespace SiteParser\Commands;
 
 class HelpCommand extends Command
 {
+
     function execute()
     {
         //TODO form description dynamically
@@ -17,6 +18,6 @@ class HelpCommand extends Command
         $text .= 'report [domain]  - get info about parsed domain\n';
         $text .= 'help  - list of available commands';
 
-        return $text;
+        echo $text;
     }
 }

@@ -3,7 +3,7 @@
 
 use SiteParser\Commands\ParseCommand;
 
-$link = getopt();
+$url = getopt();
 
-$command = new ParseCommand($link);
+$command = new ParseCommand($url);
 $command->execute();

@@ -8,7 +8,16 @@
 
 namespace SiteParser\Scrappers;
 
-class Scraper
+use SiteParser\DTO\ScrapedData;
+use SiteParser\ValueObjects\Url;
+
+abstract class Scraper
 {
+    /**
+     * @param Url $url
+     * @param string $html
+     * @return ScrapedData
+     */
+    abstract function run(Url $url, string $html);
 
 }

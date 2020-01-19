@@ -3,5 +3,6 @@
 
 use SiteParser\Commands\ReportCommand;
 
-$command = new ReportCommand();
+$domain = getopt();
+$command = new ReportCommand($domain);
 $command->execute();
