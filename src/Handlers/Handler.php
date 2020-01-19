@@ -8,9 +8,9 @@
 
 namespace SiteParser\Handlers;
 
-use SiteParser\DTO\ScrapingResult;
+use SiteParser\DTO\ScrapedData;
 
 abstract class Handler
 {
-    abstract public function handle(ScrapingResult $dto);
+    abstract public function handle(ScrapedData $dto);
 }

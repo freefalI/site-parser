@@ -53,8 +53,7 @@ class ParseManager
                 continue;
             }
 
-            //TODO get page text
-            $pageText = '';
+            $pageText = file_get_contents($url);
             $urls = $this->urlScrapper->run($url, $pageText);
             $images = $this->imageScrapper->run($url, $pageText);
             $imagesDTOs[] = $images;
@@ -67,8 +66,9 @@ class ParseManager
 //                }
             }
         }
-
-        //TODO  call handlers
+        foreach ($this->handlers as $handler) {
+            $handler->handle($imagesDTOs);
+        }
     }
 
     /**

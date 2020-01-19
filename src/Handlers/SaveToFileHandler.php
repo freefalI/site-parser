@@ -8,11 +8,11 @@
 
 namespace SiteParser\Handlers;
 
-use SiteParser\DTO\ScrapingResult;
+use SiteParser\DTO\ScrapedData;
 
 class SaveToFileHandler extends Handler
 {
-    public function handle(ScrapingResult $dto)
+    public function handle(ScrapedData $dto)
     {
         //TODO  save result to file
     }

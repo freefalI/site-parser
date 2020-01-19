@@ -8,11 +8,11 @@
 
 namespace SiteParser\Handlers;
 
-use SiteParser\DTO\ScrapingResult;
+use SiteParser\DTO\ScrapedData;
 
 class CountImagesHandler extends Handler
 {
-    public function handle(ScrapingResult $dto)
+    public function handle(ScrapedData $dto)
     {
         //TODO  count number of found images while scraping
     }
