@@ -42,8 +42,8 @@ class ParseManager
 
     public function parse(Url $url)
     {
-        //TODO get domain from url
-        $domain = '';
+        $parse = parse_url($url->getUrl());
+        $domain = $parse['host'];
 
         $imagesDTOs = [];
         $scrapedUrls = [];
@@ -58,18 +58,20 @@ class ParseManager
                 continue;
             }
 
-            $pageText = file_get_contents($url);
-            $urls = $this->urlScrapper->run($url, $pageText);
+//            $pageText = file_get_contents($url->getUrl());
+            $pageText = $this->getSSLPage($url->getUrl());
+//            $urls = $this->urlScrapper->run($url, $pageText);
             $images = $this->imageScrapper->run($url, $pageText);
             $imagesDTOs[] = $images;
             $scrapedUrls[] = $url;
 
 
-            foreach ($urls as $url) {
-//                if(!in_array($url,$this->urlsToScrap)){
-                $this->urlsToScrap[] = $url;
-//                }
-            }
+//            foreach ($urls as $url) {
+////                if(!in_array($url,$this->urlsToScrap)){
+//                $this->urlsToScrap[] = $url;
+////                }
+//            }
+            break;
         }
         $this->callHandlers($domain, $imagesDTOs);
     }
@@ -134,5 +136,15 @@ class ParseManager
         $this->handlers = $handlers;
     }
 
+    function getSSLPage($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSLVERSION, 3);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
 
 }
