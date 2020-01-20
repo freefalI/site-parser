@@ -12,8 +12,15 @@ use SiteParser\DTO\ScrapedData;
 
 class CountImagesHandler extends Handler
 {
-    public function handle(ScrapedData $dto)
+
+    /**
+     * @param ScrapedData[] $dtos
+     * @return mixed
+     */
+    public function handle($dtos)
     {
         //TODO  count number of found images while scraping
+        echo 'calling CountImagesHandler handler';
+
     }
 }

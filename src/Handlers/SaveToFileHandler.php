@@ -12,8 +12,20 @@ use SiteParser\DTO\ScrapedData;
 
 class SaveToFileHandler extends Handler
 {
-    public function handle(ScrapedData $dto)
+    /**
+     * @param ScrapedData[] $dtos
+     */
+    public function handle($dtos)
     {
-        //TODO  save result to file
+        $file = 'reports/' . $this->getDomain();
+        foreach ($dtos as $dto) {
+            $string = $dto->getScrapedUrl()->getUrl();
+            $string .= ';';
+            foreach ($dto->getFoundData() as $imageUrl) {
+                $string .= $imageUrl->getUrl() . ',';
+            }
+            $string .= '\n';
+            file_put_contents($file, $string, FILE_APPEND);
+        }
     }
 }

@@ -27,49 +27,19 @@
 — использовать любой удобный способ хранения данных.
 
 
-DTO
-register handler
 
-Scraper
-    WebPageScraper
-        UrlScraper
-        ImageScraper
-DTO
-ScrapingResultsDTO
-    Url
-    images[]
-    ---
-    getUrl()
-    getImages()
 
 type hinting
 immutability
 
 проверка на то что эта ссылка уже парсилась
-замомнить
-вернуть список ссылок
-
-Вид csv
-/home
-    images:
-            a.png
-            p.png
-/catalog:
-    images:
-            c.jpeg
-            d.jpeg
-
 
 ссылка;img1,img2,img3
 ссылка;img1,img2,img3
-
-ValueObject - Url
-
-
 
 запретить изменение в DTO
-Заменить Url на url
-вывод или return
+
 Разобратся со возвращаемыми типами
     webscrapper:   public function run(Url $url):ScrapedData
 Заменить типы в докблоке на более конкретные.
+ошибка в ParseManager:79

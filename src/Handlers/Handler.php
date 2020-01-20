@@ -12,5 +12,30 @@ use SiteParser\DTO\ScrapedData;
 
 abstract class Handler
 {
-    abstract public function handle(ScrapedData $dto);
+    /**
+     * @var string
+     */
+    private $domain;
+
+    /**
+     * @return string
+     */
+    public function getDomain(): string
+    {
+        return $this->domain;
+    }
+
+    /**
+     * @param string $domain
+     */
+    public function setDomain(string $domain): void
+    {
+        $this->domain = $domain;
+    }
+
+    /**
+     * @param ScrapedData[] $dtos
+     * @return mixed
+     */
+    abstract public function handle($dtos);
 }

@@ -8,6 +8,7 @@
 
 namespace SiteParser;
 
+use SiteParser\DTO\ScrapedImages;
 use SiteParser\Handlers\Handler;
 use SiteParser\Scrappers\Scraper;
 use SiteParser\ValueObjects\Url;
@@ -19,6 +20,7 @@ class ParseManager
      * @var Scraper
      */
     private $urlScrapper;
+
     /**
      * @var Scraper
      */
@@ -40,6 +42,9 @@ class ParseManager
 
     public function parse(Url $url)
     {
+        //TODO get domain from url
+        $domain = '';
+
         $imagesDTOs = [];
         $scrapedUrls = [];
         $this->urlsToScrap[] = $url;
@@ -66,7 +71,17 @@ class ParseManager
 //                }
             }
         }
+        $this->callHandlers($domain, $imagesDTOs);
+    }
+
+    /**
+     * @param string $domain
+     * @param ScrapedImages[] $imagesDTOs
+     */
+    public function callHandlers($domain, $imagesDTOs): void
+    {
         foreach ($this->handlers as $handler) {
+            $handler->setDomain($domain);
             $handler->handle($imagesDTOs);
         }
     }
@@ -86,7 +101,6 @@ class ParseManager
     {
         $this->urlScrapper = $urlScrapper;
     }
-
 
     /**
      * @return Scraper
