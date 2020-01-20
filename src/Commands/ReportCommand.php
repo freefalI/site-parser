@@ -23,12 +23,11 @@ class ReportCommand extends Command
     public function __construct($domain)
     {
         $this->domain = $domain;
-        $this->execute();
     }
 
     function execute()
     {
-        $fileName = self::reportsFolder . $this->domain;
+        $fileName = self::reportsFolder . $this->domain . '.csv';
         if (file_exists($fileName)) {
             echo file_get_contents($fileName);
 

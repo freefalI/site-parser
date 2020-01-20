@@ -14,9 +14,13 @@ class HelpCommand extends Command
     function execute()
     {
         //TODO form description dynamically
-        $text = 'parse [url]   -  parse this url\n';
-        $text .= 'report [domain]  - get info about parsed domain\n';
-        $text .= 'help  - list of available commands';
+
+        $text = PHP_EOL . '-Parse url' . PHP_EOL;
+        $text .= 'parse [url]' . PHP_EOL;
+        $text .= '-Get info about parsed domain' . PHP_EOL;
+        $text .= 'report [domain]' . PHP_EOL;
+        $text .= '-List of available commands' . PHP_EOL;
+        $text .= 'help ' . PHP_EOL;
 
         echo $text;
     }

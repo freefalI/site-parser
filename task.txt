@@ -43,3 +43,6 @@ immutability
     webscrapper:   public function run(Url $url):ScrapedData
 Заменить типы в докблоке на более конкретные.
 ошибка в ParseManager:79
+
+передавать домен на нужном уровне -
+namespaces

@@ -12,12 +12,14 @@ use SiteParser\DTO\ScrapedData;
 
 class SaveToFileHandler extends Handler
 {
+    //TODO : брать путь из конфига
+    const reportsFolder = 'reports/';
     /**
      * @param ScrapedData[] $dtos
      */
     public function handle($dtos)
     {
-        $file = 'reports/' . $this->getDomain();
+        $file = self::reportsFolder . $this->getDomain();
         foreach ($dtos as $dto) {
             $string = $dto->getScrapedUrl()->getUrl();
             $string .= ';';

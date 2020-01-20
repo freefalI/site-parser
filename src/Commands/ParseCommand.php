@@ -29,9 +29,9 @@ class ParseCommand extends Command
      */
     public function __construct($url)
     {
-        $url = new Url('my_url');
+        echo $url;
+        $url = new Url($url);
         $this->url = $url;
-        $this->execute();
     }
 
     function execute()
