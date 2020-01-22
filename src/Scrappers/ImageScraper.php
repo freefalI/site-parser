@@ -15,6 +15,8 @@ use SiteParser\ValueObjects\Url;
 
 class ImageScraper extends WebPageScraper
 {
+    private $scheme = 'http://';
+
     /**
      * @param Url $url
      * @param string $html
@@ -23,17 +25,24 @@ class ImageScraper extends WebPageScraper
      */
     public function run(Url $url, string $html)
     {
+        $host = parse_url($url->getUrl())['host'];
         $regex = '/(?:<img.* src=")(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\".,<>?«»“”‘’]))/';
         $regex = '/(?:<img.* src=")([^"]*)/';
         if (preg_match_all($regex, $html, $matches)) {
             print_r($matches[1]);
         }
         $results = [];
-        print_r($matches[1]);
         foreach ($matches[1] as $match) {
-            //TODO check if url is without protocol, add it
+            $current_url = parse_url($match);
+
+            if (isset($current_url['scheme']) && ($current_url['scheme'] == 'http' || $current_url['scheme'] == 'https')) {
+                // is absolute url
+            } else {
+                $match = $this->scheme . $host . '/' . $match;
+            }
             $results[] = new ImageUrl($match);
         }
+
         return new ScrapedUrls($url, $results);
 //        return new ScrapedImages($url, [new ImageUrl('789'), new ImageUrl('123')]);
     }
