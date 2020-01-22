@@ -19,7 +19,7 @@ class ScrapedData extends DataTransferObject
      *
      * @var Url
      */
-    public $scrapedUrl;
+    private $scrapedUrl;
 
 
     /**
@@ -27,7 +27,7 @@ class ScrapedData extends DataTransferObject
      *
      * @var string[]|Url[]
      */
-    public $foundData;
+    private $foundData;
 
     /**
      * ScrapedData constructor.

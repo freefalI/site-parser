@@ -46,3 +46,8 @@ immutability
 
 передавать домен на нужном уровне -
 namespaces
+
+
+>C:\OSPanel\modules\php\PHP-7.2\php.exe parse.php  http://freefall.zzz.com.ua/gallery.html
+
+https://www.hungred.com/how-to/php-check-remote-email-url-image-link-exist/
