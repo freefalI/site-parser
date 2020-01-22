@@ -48,7 +48,14 @@ class ParseManager
         $imagesDTOs = [];
         $scrapedUrls = [];
         $this->urlsToScrap[] = $url;
+        $i = 0;
+        echo "\n";
         while (True) {
+            echo 'iteration ' . $i . ' ' . $url->getUrl() . "\n";
+            if ($i > 50) {
+                break;
+            }
+            $i++;
             if (!count($this->urlsToScrap)) {
                 break;
             }
@@ -61,18 +68,20 @@ class ParseManager
 //            $pageText = file_get_contents($url->getUrl());
 //            $pageText = $this->getSSLPage($url->getUrl());
             $pageText = $this->get_web_page($url->getUrl());
-//            $urls = $this->urlScrapper->run($url, $pageText);
+            print_r($pageText);
+            $urls = $this->urlScrapper->run($url, $pageText);
             $images = $this->imageScrapper->run($url, $pageText);
             $imagesDTOs[] = $images;
             $scrapedUrls[] = $url;
 
 
-//            foreach ($urls as $url) {
-////                if(!in_array($url,$this->urlsToScrap)){
-//                $this->urlsToScrap[] = $url;
-////                }
-//            }
-            break;
+            foreach ($urls->getFoundData() as $url) {
+                if (!in_array($url, $this->urlsToScrap)) {
+                    $this->urlsToScrap[] = $url;
+                }
+            }
+//            print_r($this->urlsToScrap);
+//            break;
         }
         $this->callHandlers($domain, $imagesDTOs);
     }
@@ -171,7 +180,8 @@ class ParseManager
             CURLOPT_AUTOREFERER => true,     // set referer on redirect
             CURLOPT_CONNECTTIMEOUT => 120,      // timeout on connect
             CURLOPT_TIMEOUT => 120,      // timeout on response
-            CURLOPT_MAXREDIRS => 10,       // stop after 10 redirects
+            CURLOPT_MAXREDIRS => 10,
+            // stop after 10 redirects
         );
 
         $ch = curl_init($url);
@@ -188,4 +198,18 @@ class ParseManager
         return $content;
     }
 
+    function checkRemoteFile($url)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        // don't download content
+        curl_setopt($ch, CURLOPT_NOBODY, 1);
+        curl_setopt($ch, CURLOPT_FAILONERROR, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        if (curl_exec($ch) !== FALSE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

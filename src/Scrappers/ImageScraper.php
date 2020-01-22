@@ -29,7 +29,7 @@ class ImageScraper extends WebPageScraper
         $regex = '/(?:<img.* src=")(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\".,<>?«»“”‘’]))/';
         $regex = '/(?:<img.* src=")([^"]*)/';
         if (preg_match_all($regex, $html, $matches)) {
-            print_r($matches[1]);
+//            print_r($matches[1]);
         }
         $results = [];
         foreach ($matches[1] as $match) {
@@ -40,8 +40,11 @@ class ImageScraper extends WebPageScraper
             } else {
                 $match = $this->scheme . $host . '/' . $match;
             }
+            print_r($match);
+            echo "\n";
             $results[] = new ImageUrl($match);
         }
+
 
         return new ScrapedUrls($url, $results);
 //        return new ScrapedImages($url, [new ImageUrl('789'), new ImageUrl('123')]);
