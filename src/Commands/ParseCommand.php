@@ -36,7 +36,6 @@ class ParseCommand extends Command
 
     function execute()
     {
-
         $parserManager = new ParseManager();
         $parserManager->setUrlScrapper(new UrlScraper());
         $parserManager->setImageScrapper(new ImageScraper());

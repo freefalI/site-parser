@@ -42,8 +42,7 @@ class ParseManager
 
     public function parse(Url $url)
     {
-        $parse = parse_url($url->getUrl());
-        $domain = $parse['host'];
+        $domain = $url->getHost();
 
         $imagesDTOs = [];
         $scrapedUrls = [];
@@ -51,7 +50,7 @@ class ParseManager
         $i = 0;
         echo "\n";
         while (True) {
-            echo 'iteration ' . $i . ' ' . $url->getUrl() . "\n";
+            echo 'iteration ' . $i . ' ' . $url->toString() . "\n";
             if ($i > 50) {
                 break;
             }
@@ -65,10 +64,7 @@ class ParseManager
                 continue;
             }
 
-//            $pageText = file_get_contents($url->getUrl());
-//            $pageText = $this->getSSLPage($url->getUrl());
-            $pageText = $this->get_web_page2($url->getUrl());
-            //print_r($pageText);
+            $pageText = $this->get_web_page2($url->toString());
             $urls = $this->urlScrapper->run($url, $pageText);
             $images = $this->imageScrapper->run($url, $pageText);
             $imagesDTOs[] = $images;
@@ -80,8 +76,6 @@ class ParseManager
                     $this->urlsToScrap[] = $url;
                 }
             }
-//            print_r($this->urlsToScrap);
-//            break;
         }
         $this->callHandlers($domain, $imagesDTOs);
     }

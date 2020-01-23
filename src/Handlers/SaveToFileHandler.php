@@ -22,10 +22,10 @@ class SaveToFileHandler extends Handler
         $file = self::reportsFolder . $this->getDomain() . '.csv';
         file_put_contents($file, '');
         foreach ($dtos as $dto) {
-            $string = $dto->getScrapedUrl()->getUrl();
+            $string = $dto->getScrapedUrl()->toString();
             $string .= ';';
             foreach ($dto->getFoundData() as $imageUrl) {
-                $string .= $imageUrl->getUrl() . ',';
+                $string .= $imageUrl->toString() . ',';
             }
             $string .= PHP_EOL;
             file_put_contents($file, $string, FILE_APPEND);

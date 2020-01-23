@@ -29,7 +29,7 @@ class ImageScraper extends WebPageScraper
         print_r('images');
         echo "\n";
 
-        $host = parse_url($url->getUrl())['host'];
+        $host = $url->getHost();
         $regex = '/(?:<img.* src=")(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\".,<>?«»“”‘’]))/';
         $regex = '/(?:<img[^>]*?src=")([^"]*)|((?:<img[^>]*? src=\')([^\']*))/';
         if (preg_match_all($regex, $html, $matches)) {
