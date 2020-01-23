@@ -15,8 +15,6 @@ use SiteParser\ValueObjects\Url;
 
 class ImageScraper extends WebPageScraper
 {
-    private $scheme = 'http://';
-
     /**
      * @param Url $url
      * @param string $html
@@ -30,11 +28,9 @@ class ImageScraper extends WebPageScraper
         echo "\n";
 
         $host = $url->getHost();
-        $regex = '/(?:<img.* src=")(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\".,<>?«»“”‘’]))/';
+        $scheme = $url->getScheme();
         $regex = '/(?:<img[^>]*?src=")([^"]*)|((?:<img[^>]*? src=\')([^\']*))/';
-        if (preg_match_all($regex, $html, $matches)) {
-//            print_r($matches[1]);
-        }
+        preg_match_all($regex, $html, $matches);
         $results = [];
         foreach ($matches[1] as $match) {
             $current_url = parse_url($match);
@@ -42,7 +38,7 @@ class ImageScraper extends WebPageScraper
             if (isset($current_url['scheme']) && ($current_url['scheme'] == 'http' || $current_url['scheme'] == 'https')) {
                 // is absolute url
             } else {
-                $match = $this->scheme . $host . '/' . $match;
+                $match = $scheme . '://' . $host . '/' . $match;
             }
             print_r($match);
             echo "\n";
@@ -54,6 +50,5 @@ class ImageScraper extends WebPageScraper
 
 
         return new ScrapedUrls($url, $results);
-//        return new ScrapedImages($url, [new ImageUrl('789'), new ImageUrl('123')]);
     }
 }

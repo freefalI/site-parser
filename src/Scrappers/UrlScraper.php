@@ -14,7 +14,6 @@ use SiteParser\ValueObjects\Url;
 
 class UrlScraper extends WebPageScraper
 {
-    private $scheme = 'http://';
 
     /**
      * @param Url $url
@@ -25,11 +24,9 @@ class UrlScraper extends WebPageScraper
     public function run(Url $url, string $html)
     {
         $host = $url->getHost();
-        $regex = '/(?:<a.* href=")(?i)\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\".,<>?«»“”‘’]))/';
+        $scheme = $url->getScheme();
         $regex = '/(?:<a[^>]*?href=")([^"]*)|((?:<a[^>]*?href=\')([^\']*))/';
-        if (preg_match_all($regex, $html, $matches)) {
-//            print_r($matches[1]);
-        }
+        preg_match_all($regex, $html, $matches);
         $results = [];
         foreach ($matches[1] as $match) {
             if (!$match) continue;
@@ -53,7 +50,7 @@ class UrlScraper extends WebPageScraper
                 if ($match[0] != "/") {
                     $host2 = $host . '/';
                 }
-                $match = $this->scheme . $host2 . $match;
+                $match = $scheme . $host2 . $match;
             }
             print_r($match);
             echo "\n";
