@@ -20,6 +20,7 @@ class SaveToFileHandler extends Handler
     public function handle($dtos)
     {
         $file = self::reportsFolder . $this->getDomain() . '.csv';
+        file_put_contents($file, '');
         foreach ($dtos as $dto) {
             $string = $dto->getScrapedUrl()->getUrl();
             $string .= ';';
