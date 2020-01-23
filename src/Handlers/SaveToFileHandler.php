@@ -9,17 +9,17 @@
 namespace SiteParser\Handlers;
 
 use SiteParser\DTO\ScrapedData;
+use SiteParser\GlobalConfig;
 
 class SaveToFileHandler extends Handler
 {
-    //TODO : брать путь из конфига
-    const reportsFolder = 'reports/';
     /**
      * @param ScrapedData[] $dtos
      */
     public function handle($dtos)
     {
-        $file = self::reportsFolder . $this->getDomain() . '.csv';
+        $reportsFolder = GlobalConfig::get('reportsPath');
+        $file = $reportsFolder . $this->getDomain() . '.csv';
         file_put_contents($file, '');
         foreach ($dtos as $dto) {
             $string = $dto->getScrapedUrl()->toString();

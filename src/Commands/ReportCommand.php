@@ -8,9 +8,10 @@
 
 namespace SiteParser\Commands;
 
+use SiteParser\GlobalConfig;
+
 class ReportCommand extends Command
 {
-    const reportsFolder = 'reports/';
     /**
      * @var string
      */
@@ -27,7 +28,8 @@ class ReportCommand extends Command
 
     function execute()
     {
-        $fileName = self::reportsFolder . $this->domain . '.csv';
+        $reportsFolder = GlobalConfig::get('reportsFolder');
+        $fileName = $reportsFolder . $this->domain . '.csv';
         if (file_exists($fileName)) {
             echo file_get_contents($fileName);
 
