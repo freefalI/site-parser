@@ -19,8 +19,14 @@ class CountImagesHandler extends Handler
      */
     public function handle($dtos)
     {
-        //TODO  count number of found images while scraping
-        echo 'calling CountImagesHandler handler';
+        echo "calling CountImagesHandler handler\n";
+        $count = 0;
+        foreach ($dtos as $dto) {
 
+            foreach ($dto->getFoundData() as $imageUrl) {
+                $count++;
+            }
+        }
+        echo "total = " . $count . "\n";
     }
 }
