@@ -23,10 +23,6 @@ class ImageScraper extends WebPageScraper
      */
     public function run(Url $url, string $html)
     {
-        echo "\n";
-        print_r('images');
-        echo "\n";
-
         $host = $url->getHost();
         $scheme = $url->getScheme();
         $regex = '/(?:<img[^>]*?src=")([^"]*)|((?:<img[^>]*? src=\')([^\']*))/';
@@ -40,15 +36,11 @@ class ImageScraper extends WebPageScraper
             } else {
                 $match = $scheme . '://' . $host . '/' . $match;
             }
-            print_r($match);
-            echo "\n";
             try {
                 $results[] = new ImageUrl($match);
             } catch (\ErrorException $ex) {
             }
         }
-
-
         return new ScrapedUrls($url, $results);
     }
 }

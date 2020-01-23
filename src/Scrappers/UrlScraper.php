@@ -32,28 +32,21 @@ class UrlScraper extends WebPageScraper
             if (!$match) continue;
             if ($match == "/") continue;
             $current_url = parse_url($match);
-//            print_r($current_url);
-//            echo "\n";
 
             if (isset($current_url['scheme']) && ($current_url['scheme'] == 'http' || $current_url['scheme'] == 'https')) {
                 // is absolute url
-                //check if home url
-//                if(! isset($current_url['path']) || !$current_url['path'] || $current_url['path']=="/"){
-//                    continue;
-//                }
+
+                //if another host
                 if (isset($current_url['host']) && $current_url['host'] != $host) {
                     continue;
                 }
-
             } else {
-                $host2 = $host;
+                $prefix = $scheme . $host;
                 if ($match[0] != "/") {
-                    $host2 = $host . '/';
+                    $prefix .= '/';
                 }
-                $match = $scheme . $host2 . $match;
+                $match = $prefix . $match;
             }
-            print_r($match);
-            echo "\n";
             try {
                 $results[] = new Url($match);
 
