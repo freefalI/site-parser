@@ -1,0 +1,16 @@
+{
+  "name": "ashmatko/site-parser",
+  "authors": [
+    {
+      "name": "ashmatko",
+      "email": "ashmatko758@gmail.com"
+    }
+  ],
+  "require": {
+  },
+  "autoload": {
+    "psr-4": {
+      "SiteParser\\": "src/"
+    }
+  }
+}
